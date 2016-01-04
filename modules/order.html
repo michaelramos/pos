@@ -1,10 +1,46 @@
-<div title="ORDERS" description="Order Module" color="rgb(233,30,99)">
+<div name="order" presenter="order_presenter" title="ORDERS" description="Order Module" color="rgb(233,30,99)">
 	<menu class="test" text="New" action="" enable="" title="New"/>
 	<menu text="Sync" action="" enable="" title="Sync"/>
-	<content presenter="" description="" text="">
-		
+	<content>
+		<div class="mdl-grid pos-order-grid">
+			<div partial-view="pos-order-view" class="mdl-cell mdl-cell--4-col">
+				<div class="demo-card-square mdl-card mdl-shadow--2dp">
+					<div class="mdl-card__title mdl-card--expand" style="background-color: #46B6AC">
+						<h4 class="order-display-name">ORDER-00001</h4>
+					</div>
+					<div class="mdl-card__supporting-text order-details" style="font-weight: bolder">
+						Ref:#01 Php 2,000.00
+					</div>
+					<div class="mdl-card__actions mdl-card--border">
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect action">Open</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</content>
 	<script type="application/javascript">
-		console.log('from order');
+		Platform.presenter('order_presenter', {
+			init: function(navigator) {
+				var self = this;
+				
+				$('.pos-order-grid').html('');
+				var view = MVVM.partial('pos-order-view');
+			},
+			
+			list: function() {
+				var deferred = $.Deferred();
+				POSDB.transaction(function(repo){
+					var orderDao = repo.lookup('pos_order');
+					orderDao.list().results(function(rows){	
+						var list = [];
+						for(var i=0; i < rows.length; i++)
+							list.push(rows.item(i));
+						
+						deferred.resolve(list);
+					});
+				});
+				return deferred.promise();
+			},
+		});
 	</script>
 </div>
