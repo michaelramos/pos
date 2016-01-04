@@ -1,0 +1,69 @@
+<div name="item-view" title="ITEMS (New)" presenter="item_view_presenter" partial="true" nosearch="true">
+	<menu action="saveItem">Save</menu>
+	<content>
+		<div class="mdl-grid" id="new-item">
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="item-code">
+					<label class="mdl-textfield__label" for="sample3">Code</label>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="item-display-name">
+					<label class="mdl-textfield__label" for="sample3">Name</label>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="item-price">
+					<label class="mdl-textfield__label" for="item-price">Price</label>
+					<span class="mdl-textfield__error">Input is not a number!</span>
+				</div>
+			</div>
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<textarea class="mdl-textfield__input" type="text" rows= "3" id="item-description" ></textarea>
+					<label class="mdl-textfield__label" for="sample5">Descriptions</label>
+				</div>
+			</div>
+		</div>
+	</content>
+	<script type="application/javascript">
+		Platform.presenter('item_view_presenter', {
+			init: function(navigator, item) {
+				var self = this;
+				self.item = !item ? {price:0} : item;
+				$('[menu-action="saveItem"].platform-context-menu').click(function(){ self.save(); });
+				
+				$('#item-code').val(self.item.code);
+				$('#item-display-name').val(self.item.name);
+				$('#item-price').val(parseFloat(self.item.price).currency());
+				$('#item-description').val(self.item.description);
+			},
+			
+			save : function() {
+				var self = this;
+				
+				self.item.code = $('#item-code').val();
+				self.item.name = $('#item-display-name').val();
+				self.item.price = $('#item-price').val();
+				self.item.description = $('#item-description').val();
+				self.item.status = 'ACTIVE';
+			
+				POSDB.transaction(function(repo) {
+					var itemDao = repo.lookup('pos_item');
+					if(!self.item.objid) {
+						itemDao.insert(self.item).done(function() {
+							Platform.load('item');
+						});
+					} else {
+						itemDao.update(self.item).done(function() {
+							Platform.load('item');
+						});
+					}
+				});
+			}
+		});
+	</script>
+</div>

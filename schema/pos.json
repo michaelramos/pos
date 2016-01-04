@@ -1,0 +1,87 @@
+{
+    "name": "pos",
+    "displayName": "POS",
+    "version": "1.0",
+    "size": 30000,
+    "tables": [
+        {"name": "pos_item", "columns": [
+                {"name": "objid", "id": true, "auto": true, "type": "INTEGER"},
+                {"name": "code"},
+                {"name": "name"},
+                {"name": "description"},
+                {"name": "price"},
+                {"name": "status"},
+                {"name": "image"},
+                {"name": "created_date"},
+                {"name": "created_by"},
+                {"name": "item_price_id"},
+                {"name": "unit_of_measure"}
+            ]},
+		{"name":"pos_item_price", "columns": [
+			{"name": "objid", "id": true, "auto": true, "type": "INTEGER"},
+			{"name": "code"},
+			{"name": "price"},
+			{"name": "status"},
+			{"name": "created_date"},
+			{"name": "created_by"},
+			{"name": "item_id"},
+			{"name": "remarks"}
+		]},
+		{"name":"pos_order", "columns": [
+			{"name": "objid", "id": true, "auto": true, "type": "INTEGER"},
+			{"name": "order_no"},
+			{"name": "ref_no"},
+			{"name": "customer_name"},
+			{"name": "status"},
+			{"name": "amount"},
+			{"name": "remarks"},
+			{"name": "created_date"},
+			{"name": "created_by"}
+		]},
+		{"name":"pos_order_item", "columns": [
+			{"name": "objid", "id": true, "auto": true, "type": "INTEGER"},
+			{"name": "order_id"},
+			{"name": "item_id"},
+			{"name": "item_price_id"},
+			{"name": "price"},
+			{"name": "status"},
+			{"name": "quantity"},
+			{"name": "remarks"},
+			{"name": "created_date"},
+			{"name": "created_by"}
+		]},
+		{"name":"pos_sale", "columns": [
+			{"name": "objid", "id": true, "auto": true, "type": "INTEGER"},
+			{"name": "order_id"},
+			{"name": "sale_amount"},
+			{"name": "invoice_no"},
+			{"name": "adjustment"},
+			{"name": "status"},
+			{"name": "total_amount"},
+			{"name": "remarks"},
+			{"name": "created_date"},
+			{"name": "created_by"}
+		]},
+		{"name":"pos_payment", "columns": [
+			{"name": "objid", "id": true, "auto": true, "type": "INTEGER"},
+			{"name": "sale_id"},
+			{"name": "amount"},
+			{"name": "remarks"},
+			{"name": "mode"},
+			{"name": "reference_no"},
+			{"name": "status"},
+			{"name": "created_date"},
+			{"name": "created_by"}
+		]},
+		{"name":"pos_sale_adjustment", "columns": [
+			{"name": "objid", "id": true, "auto": true, "type": "INTEGER"},
+			{"name": "sale_id"},
+			{"name": "description"},
+			{"name": "type"},
+			{"name": "amount"},
+			{"name": "status"},
+			{"name": "created_date"},
+			{"name": "created_by"}
+		]}
+    ]
+}
