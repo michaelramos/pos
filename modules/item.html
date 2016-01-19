@@ -28,23 +28,20 @@
 				$('.pos-item-grid').html('');
 				$('#platform-title').text("ITEMS");
 				
-				var idx = 0;
-				
 				this.list().done(function(items) {
 					$.each(items, function(){
-						if(idx == colors.length) idx = 0;
 						var item = this;
 						var view = MVVM.partial('pos-item-view');
+						
 						view.find('.item-display-name').text(item.name);
 						view.find('.item-display-price').text('Php ' + parseFloat(item.price).currency());
-						view.find('.demo-card-square > .mdl-card__title').css('background-color', colors[idx]);
+						view.find('.demo-card-square > .mdl-card__title').css('background-color', window.randomColors());
 						view.find('a.action').click(function(){
 							Platform.load('item-view', item);
 						});
 						
 						$('.pos-item-grid').append(view);
 						view.show('slow');
-						idx ++;
 					});
 				});
 			},

@@ -7,6 +7,10 @@
 	var main = $('body');
 	
 	global.Platform = {
+		updateUI : function(){
+			componentHandler.upgradeAllRegistered();
+		},
+		
 		modules: modules,
 		presenter: function(name, callback) {
 			presenters.push({
