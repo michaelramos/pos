@@ -1,4 +1,4 @@
-(function(global){
+(function(global) {
 	var modules = [];
 	var presenters = [];
 	var handlers = [];

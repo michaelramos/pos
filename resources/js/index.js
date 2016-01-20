@@ -43,6 +43,7 @@ $(function() {
 	Platform.resource('modules/item.html')
 			.resource('modules/item-view.html')
 		    .resource('modules/order.html')
+			.resource('modules/order-view.html')
 			.resource('modules/invoice.html')
 			.resource('modules/adjustment.html')
 	

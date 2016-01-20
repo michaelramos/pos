@@ -3,17 +3,25 @@
 	<menu action="syncItems" enable="">Sync</menu>
 	<content>
 		<div class="mdl-grid pos-item-grid">
-			<div partial-view="pos-item-view" class="mdl-cell mdl-cell--4-col" style="display: none">
-				<div class="demo-card-square mdl-card mdl-shadow--2dp">
-					<div class="mdl-card__title mdl-card--expand" style="background-color: #46B6AC">
-						<h4 class="item-display-name">Chicken Wings</h4>
+			<div class="mdl-cell mdl-cell--12-col" partial-view="pos-item-view">
+				<div class="mdl-grid mdl-grid--no-spacing list-view mdl-shadow--2dp">
+				  <div class="mdl-cell mdl-cell--2-col">
+					<div class="image-holder">
+						<h3>1</h3>
 					</div>
-					<div class="mdl-card__supporting-text item-display-price" style="font-weight: bolder">
-						Php 15.00
-					</div>
-					<div class="mdl-card__actions mdl-card--border">
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect action">Open</a>
-					</div>
+				  </div>
+				  <div class="mdl-cell mdl-cell--10-col" style="padding-left: 10px;">
+						<div class="mdl-layout mdl-grid mdl-grid--no-spacing">
+							<div class="mdl-cell mdl-cell--12-col">
+								<label class="item-display-code" style="padding: 5px; font-size: 18px;"></label>
+								<p class="item-display-name list-value" style="padding: 5px; font-size: 9px;">Tasdfasfasdf</p>
+							</div>
+						</div>
+						<div class="mdl-layout mdl-grid mdl-grid--no-spacing">
+							<div class="mdl-cell mdl-cell--3-col list-label">PRICE: </div><div class="mdl-cell mdl-cell--3-col list-value item-display-price">Php 20.00</div>
+							<div class="mdl-cell mdl-cell--3-col list-label">STATUS: </div><div class="mdl-cell mdl-cell--3-col list-value">PENDING</div>
+						</div>
+				  </div>
 				</div>
 			</div>
 		</div>
@@ -29,13 +37,14 @@
 				$('#platform-title').text("ITEMS");
 				
 				this.list().done(function(items) {
-					$.each(items, function(){
-						var item = this;
+					$.each(items, function(i, item){
 						var view = MVVM.partial('pos-item-view');
 						
-						view.find('.item-display-name').text(item.name);
+						view.find('.item-display-code').text(item.code.toUpperCase());
+						view.find('.item-display-name').text(item.name.toUpperCase());
 						view.find('.item-display-price').text('Php ' + parseFloat(item.price).currency());
-						view.find('.demo-card-square > .mdl-card__title').css('background-color', window.randomColors());
+						view.find('.image-holder > h3').text(i+1)
+						view.find('.image-holder').css('background-color', window.randomColors());
 						view.find('a.action').click(function(){
 							Platform.load('item-view', item);
 						});

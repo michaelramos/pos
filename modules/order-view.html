@@ -1,0 +1,42 @@
+<div name="order-view" title="ORDERS (New)" presenter="order_view_presenter" partial="true" nosearch="true">
+	<menu action="saveItem">Save</menu>
+	<content>
+		<div class="order-view-form">
+			<div class="mdl-grid" id="new-order" partial-view="order-view-form">
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="item-code">
+						<label class="mdl-textfield__label" for="sample3">Code</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="item-display-name">
+						<label class="mdl-textfield__label" for="sample3">Name</label>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="item-price">
+						<label class="mdl-textfield__label" for="item-price">Price</label>
+						<span class="mdl-textfield__error">Input is not a number!</span>
+					</div>
+				</div>
+				<div class="mdl-cell mdl-cell--12-col">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<textarea class="mdl-textfield__input" type="text" rows= "3" id="item-description" ></textarea>
+						<label class="mdl-textfield__label" for="sample5">Descriptions</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</content>
+	<script type="application/javascript">
+		Platform.presenter('order_view_presenter', {
+			init: function(navigator, item) {
+				
+				Platform.updateUI();
+			}
+		});
+	</script>
+</div>
